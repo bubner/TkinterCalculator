@@ -29,6 +29,7 @@ def create_basic_widgets(instance, target):
     # Add the entry widget to display the calculation
     instance.entry = tk.Entry(target, width=25)
     instance.entry.grid(row=0, column=0, columnspan=4, pady=5)
+    instance.entry.config(state='readonly')
 
     # Add the number buttons by looping over each button and it's coordinates
     for key, value in buttons.items():

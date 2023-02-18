@@ -14,8 +14,12 @@ class Calculator(tk.Tk):
         # Assign window title
         self.title("Calculator")
 
-        # Change favicon
-        self.iconbitmap(r"./assets/favicon.ico")
+        # Change favicon if we can
+        try:
+            self.iconbitmap(r"./assets/favicon.ico")
+        except tk.TclError:
+            # If the favicon is not supported, it will throw an error. However, we can safely swallow it.
+            pass
 
         # Prevent resizing
         self.resizable(False, False)
