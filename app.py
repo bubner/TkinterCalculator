@@ -15,7 +15,7 @@ class Calculator(tk.Tk):
         self.title("Calculator")
 
         # Change favicon
-        self.iconphoto(False, tk.PhotoImage("./assets/icon.png"))
+        self.iconbitmap(r"./assets/favicon.ico")
 
         # Prevent resizing
         self.resizable(False, False)
