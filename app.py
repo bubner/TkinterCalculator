@@ -14,10 +14,16 @@ class Calculator(tk.Tk):
         # Assign window title
         self.title("Calculator")
 
+        # Change favicon
+        self.iconbitmap("assets/favicon.ico")
+
+        # Prevent resizing
+        self.resizable(False, False)
+
         # Create a Notebook widget for multiple tabs
         self.notebook = ttk.Notebook(self.master)
         self.notebook.pack(fill=tk.BOTH, expand=True)
-    
+
         # Create the default tab
         self.basic_calculator = ttk.Frame(self.notebook)
         self.notebook.add(self.basic_calculator, text="Basic")

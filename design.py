@@ -3,6 +3,7 @@
 import tkinter as tk
 from operations import num_c, add_c, sub_c, mul_c, div_c, equal_c, clear_c
 
+
 # Function to create the standard 0 to 9, clear, equal, and arithmatic operations design
 def create_basic_widgets(instance, target):
     # Dictionary of buttons to map with standard grid positions
@@ -16,13 +17,13 @@ def create_basic_widgets(instance, target):
         '7': (1, 0),
         '8': (1, 1),
         '9': (1, 2),
-        '0': (4, 0),
+        '0': (4, 1),
         '+': (1, 3),
         '-': (2, 3),
         '*': (3, 3),
         '/': (4, 3),
         '=': (4, 2),
-        'C': (4, 1)
+        'C': (4, 0)
     }
 
     # Add the entry widget to display the calculation
