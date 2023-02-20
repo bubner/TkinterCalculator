@@ -1,28 +1,44 @@
 # Operation and button handler module
 
-def num_c(num):
+operation = None
+operands = []
+
+
+# Number appendage to the main display
+def append(self, num):
     ...
 
-
-def add_c():
+    
+# Save the current numbers that are on the display
+def save(self):
     ...
 
-
-def sub_c():
+    
+# List that we are going to add the previous numbers to the calculation
+def addc(self):
     ...
 
-
-def mul_c():
+    
+# List that we are going to subtract the previous numbers to the calculation
+def subc(self):
     ...
 
-
-def div_c():
+    
+# List that we are going to multiply the previous numbers to the calculation
+def mulc(self):
     ...
 
-
-def equal_c():
+    
+# List that we are going to divide the previous numbers to the calculation
+def divc(self):
     ...
 
+    
+# Finalise the operands array and equate an answer
+def equc(self):
+    ...
 
-def clear_c():
+    
+# Clear everything
+def clrc(self):
     ...

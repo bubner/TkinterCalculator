@@ -3,8 +3,8 @@
 
 import tkinter as tk
 from tkinter import ttk
-from design import create_basic_widgets
-
+from design import create_standard
+from operations import append, addc, subc, mulc, divc, equc, clrc
 
 class Calculator(tk.Tk):
     def __init__(self):
@@ -32,8 +32,17 @@ class Calculator(tk.Tk):
         self.basic_calculator = ttk.Frame(self.notebook)
         self.notebook.add(self.basic_calculator, text="Basic")
 
-        # Add standard widgets to the default tab
-        create_basic_widgets(self, self.basic_calculator)
+        # Add standard widgets to the default tab from design.py
+        create_standard(self, self.basic_calculator)
+
+    # Define class methods from operations.py
+    append = append
+    addc = addc
+    subc = subc
+    mulc = mulc
+    divc = divc
+    equc = equc
+    clrc = clrc
 
 
 if __name__ == "__main__":
