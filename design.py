@@ -1,31 +1,36 @@
 # Tkinter app design module
 import tkinter as tk
 
+
 # Function to create the standard 0 to 9, clear, equal, and arithmatic operations design
 def create_standard(self, target):
     # Dictionary of buttons to map with standard grid positions
     buttons = {
-        '1': (3, 0),
-        '2': (3, 1),
-        '3': (3, 2),
-        '4': (2, 0),
-        '5': (2, 1),
-        '6': (2, 2),
-        '7': (1, 0),
-        '8': (1, 1),
-        '9': (1, 2),
-        '0': (4, 1),
-        '+': (1, 3),
-        '-': (2, 3),
-        '*': (3, 3),
-        '/': (4, 3),
-        '=': (4, 2),
-        'C': (4, 0)
+        '1': (4, 0),
+        '2': (4, 1),
+        '3': (4, 2),
+        '4': (3, 0),
+        '5': (3, 1),
+        '6': (3, 2),
+        '7': (2, 0),
+        '8': (2, 1),
+        '9': (2, 2),
+        '0': (5, 1),
+        '+': (2, 3),
+        '-': (3, 3),
+        '*': (4, 3),
+        '/': (5, 3),
+        '=': (5, 2),
+        'C': (5, 0)
     }
 
     # Add the entry widget to display the calculation
     self.display = tk.Entry(target, width=25)
-    self.display.grid(row=0, column=0, columnspan=4, pady=5)
+    self.display.grid(row=1, column=0, columnspan=4, pady=5)
+
+    # Add a small widget above the entry bar that displays the current calculation
+    self.current = tk.Label(target, text="Calculator")
+    self.current.grid(row=0, column=0, columnspan=4, pady=5)
 
     # Add the number buttons by looping over each button and it's coordinates
     for key, value in buttons.items():
@@ -39,14 +44,14 @@ def create_standard(self, target):
         if key in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']:
             btn.configure(command=lambda x=key: self.append(x))
         elif key == '+':
-            btn.configure(command=self.addc())
+            btn.configure(command=self.addc)
         elif key == '-':
-            btn.configure(command=self.subc())
+            btn.configure(command=self.subc)
         elif key == '*':
-            btn.configure(command=self.mulc())
+            btn.configure(command=self.mulc)
         elif key == '/':
-            btn.configure(command=self.divc())
+            btn.configure(command=self.divc)
         elif key == '=':
-            btn.configure(command=self.equc())
+            btn.configure(command=self.equc)
         elif key == 'C':
-            btn.configure(command=self.clrc())
+            btn.configure(command=self.clrc)

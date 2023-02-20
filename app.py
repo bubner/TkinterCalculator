@@ -1,10 +1,11 @@
-# A Python GUI calulator built in Tkinter
+# A Python GUI calculator built in Tkinter
 # Lucas Bubner, 2023
 
 import tkinter as tk
 from tkinter import ttk
 from design import create_standard
 from operations import append, addc, subc, mulc, divc, equc, clrc
+
 
 class Calculator(tk.Tk):
     def __init__(self):
