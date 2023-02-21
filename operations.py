@@ -1,5 +1,6 @@
 # Operation and button handler module
 import tkinter as tk
+import math
 
 # Use global variables for storing the operation and operands
 operation = None
@@ -55,6 +56,12 @@ def get_operands():
 # Save the current numbers that are on the display
 def save(self):
     if self.display.get() == "":
+        # Check if the user is changing their operation instead
+        if len(operands) > 0:
+            # If so, replace the last operation with the new one
+            operands[-1] = operation
+            # Update the current calculation label
+            self.current.configure(text=get_operands())
         return
     # Add the current display value to the operands array
     operands.append(self.display.get())
@@ -148,13 +155,71 @@ def equc(self):
 
     # Insert the result into the display if nothing went wrong and result is not null
     if result:
-        # Attempt to convert to an integer to avoid .0 at the end of the result
-        try:
+        # Attempt to get rid of the .0 at the end of the result if applicable
+        # We can do this by checking if the result is divisible by 1 evenly
+        if result % 1 == 0:
             result = int(result)
-        except ValueError:
-            # If this fails then it must be a decimal, and we can just ignore the error
-            pass
         self.display.insert(0, result)
+
+
+# Handle clicking the period key
+def dotc(self):
+    # Get the current display value
+    current = self.display.get()
+    # Check if the current display value contains a period
+    if "." in current:
+        return
+    # Clear the entire display
+    self.display.delete(0, tk.END)
+    # Update the display with the old display value plus the recently pressed button
+    self.display.insert(0, str(current) + ".")
+
+
+# Handle inserting pi
+def pic(self):
+    global operation
+    # Get the current display value
+    current = self.display.get()
+    operation = Operations.MULTIPLICATION
+    save(self)
+
+    # Clear the entire display
+    self.display.delete(0, tk.END)
+    # Update the display with the old display value plus pi
+    self.display.insert(0, str(current) + str(math.pi))
+    save(self)
+
+
+# Handle changing the current number into negative
+def negc(self):
+    # Get the current display value
+    current = self.display.get()
+    if current == "":
+        return
+    # Check if the current display value is negative
+    if current[0] == "-":
+        # If it is, remove the negative sign
+        current = current[1:]
+    else:
+        # If it is not, add the negative sign
+        current = "-" + current
+    # Clear the entire display
+    self.display.delete(0, tk.END)
+    # Update the display with the old display value plus the recently pressed button
+    self.display.insert(0, str(current))
+
+
+# Handle deleting the last character of the current display
+def delc(self):
+    # Get the current display value
+    current = self.display.get()
+    # Check if the current display value is empty
+    if current == "":
+        return
+    # Clear the entire display
+    self.display.delete(0, tk.END)
+    # Update the display with the old display value minus the last character
+    self.display.insert(0, current[:-1])
 
 
 # Clear everything and reset the calculator

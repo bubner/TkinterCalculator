@@ -6,22 +6,26 @@ import tkinter as tk
 def create_standard(self, target):
     # Dictionary of buttons to map with standard grid positions
     buttons = {
-        '1': (4, 0),
-        '2': (4, 1),
-        '3': (4, 2),
-        '4': (3, 0),
-        '5': (3, 1),
-        '6': (3, 2),
-        '7': (2, 0),
-        '8': (2, 1),
-        '9': (2, 2),
-        '0': (5, 1),
-        '+': (2, 3),
-        '-': (3, 3),
-        '*': (4, 3),
-        '/': (5, 3),
-        '=': (5, 2),
-        'C': (5, 0)
+        '1': (5, 0),
+        '2': (5, 1),
+        '3': (5, 2),
+        '4': (4, 0),
+        '5': (4, 1),
+        '6': (4, 2),
+        '7': (3, 0),
+        '8': (3, 1),
+        '9': (3, 2),
+        '0': (6, 1),
+        '+': (3, 3),
+        '-': (4, 3),
+        '*': (5, 3),
+        '/': (6, 3),
+        '=': (6, 2),
+        'C': (2, 0),
+        '.': (6, 0),
+        '-/+': (2, 1),
+        '\u03C0': (2, 2),
+        '\u2190': (2, 3),
     }
 
     # Add the entry widget to display the calculation
@@ -55,3 +59,11 @@ def create_standard(self, target):
             btn.configure(command=self.equc)
         elif key == 'C':
             btn.configure(command=self.clrc)
+        elif key == '.':
+            btn.configure(command=self.dotc)
+        elif key == '-/+':
+            btn.configure(command=self.negc)
+        elif key == '\u03C0':
+            btn.configure(command=self.pic)
+        elif key == '\u2190':
+            btn.configure(command=self.delc)

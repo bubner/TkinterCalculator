@@ -4,7 +4,7 @@
 import tkinter as tk
 from tkinter import ttk
 from design import create_standard
-from operations import append, addc, subc, mulc, divc, equc, clrc
+from operations import append, addc, subc, mulc, divc, equc, clrc, dotc, negc, pic, delc
 
 
 class Calculator(tk.Tk):
@@ -33,6 +33,10 @@ class Calculator(tk.Tk):
         self.basic_calculator = ttk.Frame(self.notebook)
         self.notebook.add(self.basic_calculator, text="Basic")
 
+        # Create the standard tab
+        self.scientific_calculator = ttk.Frame(self.notebook)
+        self.notebook.add(self.scientific_calculator, text="Scientific")
+
         # Add standard widgets to the default tab from design.py
         create_standard(self, self.basic_calculator)
 
@@ -44,6 +48,10 @@ class Calculator(tk.Tk):
     divc = divc
     equc = equc
     clrc = clrc
+    dotc = dotc
+    negc = negc
+    pic = pic
+    delc = delc
 
 
 if __name__ == "__main__":
