@@ -419,3 +419,11 @@ def graphc(self):
     self.graph.bind("<MouseWheel>", zoom)
     self.graph.bind("<Button-4>", zoom)
     self.graph.bind("<Button-5>", zoom)
+
+
+# Reset graph state back to default
+def resetc(self):
+    self.graph.delete("all")
+    self.graph.create_line(0, 150, 300, 150, width=2, fill='gray')
+    self.graph.create_line(150, 0, 150, 300, width=2, fill='gray')
+    self.graph.create_text(150, 150, text="No plot yet", font=("Arial", 16))

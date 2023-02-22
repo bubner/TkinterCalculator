@@ -132,7 +132,7 @@ def create_graphing(self, target):
 
     # Create input box label
     self.graph_input_label = tk.Label(target, text="y = ")
-    self.graph_input_label.grid(row=1, column=0, columnspan=40, pady=5)
+    self.graph_input_label.grid(row=1, column=0, columnspan=10, pady=5)
 
     # Create input box
     self.graph_input = tk.Entry(target, width=25)
@@ -143,7 +143,10 @@ def create_graphing(self, target):
     self.graph_button.grid(row=2, column=0, columnspan=100, pady=5)
     self.graph_button.configure(command=self.graphc)
 
-    # Create x and y line placeholders
-    self.graph.create_line(0, 150, 300, 150, width=2, fill='gray')
-    self.graph.create_line(150, 0, 150, 300, width=2, fill='gray')
-    self.graph.create_text(150, 150, text="No plot yet", font=("Arial", 16))
+    # Create reset graph button that is right to the graph button
+    self.reset_button = tk.Button(target, text="Reset", width=5, height=2)
+    self.reset_button.grid(row=2, column=1, columnspan=60, pady=5)
+    self.reset_button.configure(command=self.resetc)
+
+    # Create x and y line placeholders by calling reset function
+    self.resetc()

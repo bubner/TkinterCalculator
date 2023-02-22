@@ -57,6 +57,7 @@ class Calculator(tk.Tk):
     delc = op.delc
     brac = op.brac
     graphc = op.graphc
+    resetc = op.resetc
 
 
 if __name__ == "__main__":
