@@ -48,8 +48,10 @@ def get_operands():
             string += " * "
         elif operand == 4:
             string += " / "
+        elif operand == str(math.pi):
+            string += "\u03C0"
         else:
-            string += str(operand)
+            string += str(operand) if operand else ""
     return string
 
 
@@ -154,7 +156,8 @@ def equc(self):
         self.display.delete(0, tk.END)
 
     # Insert the result into the display if nothing went wrong and result is not null
-    if result:
+    # Must explicitly check for None as 0 is a valid result
+    if result is not None:
         # Attempt to get rid of the .0 at the end of the result if applicable
         # We can do this by checking if the result is divisible by 1 evenly
         if result % 1 == 0:
@@ -179,14 +182,14 @@ def dotc(self):
 def pic(self):
     global operation
     # Get the current display value
-    current = self.display.get()
-    operation = Operations.MULTIPLICATION
+    if not operation:
+        operation = Operations.MULTIPLICATION
     save(self)
 
     # Clear the entire display
     self.display.delete(0, tk.END)
     # Update the display with the old display value plus pi
-    self.display.insert(0, str(current) + str(math.pi))
+    self.display.insert(0, str(math.pi))
     save(self)
 
 
