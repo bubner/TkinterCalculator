@@ -1,6 +1,7 @@
 # Operation and button handler module
 import math
 import tkinter as tk
+from random import randint
 
 # Use global variables for storing the operation and operands
 operation = None
@@ -21,13 +22,11 @@ class Operations:
     MODULUS = 9
     SQUARE = 10
     CUBE = 11
-    EXPONENT = 12
-    FACTORIAL = 13
-    SQUARE_ROOT = 14
-    ASINE = 15
-    ACOSINE = 16
-    ATANGENT = 17
-    NATURAL_LOG = 18
+    FACTORIAL = 12
+    SQUARE_ROOT = 13
+    NATURAL_LOG = 14
+    CUBE_ROOT = 15
+    RANDOM = 16
 
     operations_dict = {
         # Standard arithmetic operations
@@ -40,16 +39,13 @@ class Operations:
         COSINE: lambda x: math.cos(math.radians(x)),
         TANGENT: lambda x: math.tan(math.radians(x)),
         LOGARITHM: lambda x: math.log10(x),
-        MODULUS: lambda x, y: x % y,
         SQUARE: lambda x: x ** 2,
         CUBE: lambda x: x ** 3,
-        EXPONENT: lambda x: math.exp(x),
-        FACTORIAL: lambda x: math.factorial(x),
+        FACTORIAL: lambda x: math.factorial(int(x)),
         SQUARE_ROOT: lambda x: math.sqrt(x),
-        ASINE: lambda x: math.asin(x),
-        ACOSINE: lambda x: math.acos(x),
-        ATANGENT: lambda x: math.atan(x),
-        NATURAL_LOG: lambda x: math.log(x)
+        NATURAL_LOG: lambda x: math.log(x),
+        CUBE_ROOT: lambda x: x ** (1 / 3),
+        RANDOM: lambda x: randint(0, int(x))
     }
 
 
@@ -88,23 +84,19 @@ def get_operands():
         elif operand == 9:
             string += "(mod)"
         elif operand == 10:
-            string += "(sqr)"
+            string += "(x^2)"
         elif operand == 11:
-            string += "(cube)"
+            string += "(x^3)"
         elif operand == 12:
-            string += "(exp)"
-        elif operand == 13:
             string += "(fact)"
-        elif operand == 14:
+        elif operand == 13:
             string += "(sqrt)"
+        elif operand == 14:
+            string += "ln"
         elif operand == 15:
-            string += "(asin)"
+            string += "(cubrt)"
         elif operand == 16:
-            string += "(acos)"
-        elif operand == 17:
-            string += "(atan)"
-        elif operand == 18:
-            string += "(ln)"
+            string += "(rand)"
         elif operand == str(math.pi):
             string += "\u03C0"
         else:
@@ -354,3 +346,80 @@ def clrc(self):
     operands.clear()
     self.display.delete(0, tk.END)
     self.current.configure(text="Calculator")
+
+
+# Plot a mathematical expression in the Graphing tab
+def graphc(self):
+    # Listen for mouse movement events and adjust the scroll region accordingly
+    def scroll_start(event):
+        self.graph.scan_mark(event.x, event.y)
+
+    def scroll_move(event):
+        self.graph.scan_dragto(event.x, event.y, gain=1)
+
+    # Listen for scroll events and scale the calculation accordingly
+    def zoom(event):
+        if event.delta < 0:
+            self.graph.scale("all", event.x, event.y, 0.9, 0.9)
+        else:
+            self.graph.scale("all", event.x, event.y, 1.1, 1.1)
+
+    # Parse the mathematical expression entered by the user
+    expr = self.graph_input.get()
+
+    # Evaluate the mathematical expression at each x-coordinate
+    try:
+        # Plot out all points on the graph that we can render on the screen
+        x_values = [x / 10 for x in range(-5000, 5000)]
+        # Evaluate the expression at each x-coordinate
+        y_values = [eval(expr) for x in x_values]
+    except Exception as e:
+        # Catch any errors that may occur and display them to the user
+        # There is a security flaw with using direct eval() intake, however, this is a calculator that runs locally
+        # any damages that could be done by a malicious user are to their own machine and not to any other users
+        self.graph.delete("all")
+        self.graph.create_line(0, self.graph.winfo_height() / 2, self.graph.winfo_width(), self.graph.winfo_height() / 2, width=2, fill='gray')
+        self.graph.create_line(self.graph.winfo_width() / 2, 0, self.graph.winfo_width() / 2, self.graph.winfo_height(), width=2, fill='gray')
+        self.graph.create_text(self.graph.winfo_width() / 2, self.graph.winfo_height() / 2, text="Error plotting", font=('Arial', 14))
+        self.graph.create_text(self.graph.winfo_width() / 2, self.graph.winfo_height() / 2 + 25, text=str(e))
+        return
+
+    # Delete all previous graphing elements
+    self.graph.delete("all")
+    # Graph the axes, -50 to 50
+    # This is done because any further than this will lag out the program too much
+    self.graph.create_line(self.graph.winfo_width() / 2, -self.graph.winfo_height() * 2, self.graph.winfo_width() / 2, self.graph.winfo_height() * 3, width=2)
+    self.graph.create_line(-self.graph.winfo_width() * 2, self.graph.winfo_height() / 2, self.graph.winfo_width() * 3, self.graph.winfo_height() / 2, width=2)
+
+    # Graph out the x and y axis labels accordingly
+    for x in range(-50, 51):
+        # Split the x-coordinate into two parts, the integer and the decimal
+        # This is done so that the decimal can be moved to the right of the integer
+        # and since tkinter canvas does not support subscripts
+        x_coord = self.graph.winfo_width() / 2 + x * 15
+        self.graph.create_text(x_coord, self.graph.winfo_height() / 2 + 10, text=str(x))
+        self.graph.create_line(x_coord, self.graph.winfo_height() / 2 - 3, x_coord, self.graph.winfo_height() / 2 + 3,
+                               width=2)
+
+    for y in range(-50, 51):
+        # Repeat for y direction
+        y_coord = self.graph.winfo_height() / 2 - y * 15
+        self.graph.create_text(self.graph.winfo_width() / 2 + 10, y_coord, text=str(y))
+        self.graph.create_line(self.graph.winfo_width() / 2 - 3, y_coord, self.graph.winfo_width() / 2 + 3, y_coord,
+                               width=2)
+
+    # Graph out the points from the original expression
+    for i in range(len(x_values) - 1):
+        x1 = x_values[i] * 15 + self.graph.winfo_width() / 2
+        y1 = -y_values[i] * 15 + self.graph.winfo_height() / 2
+        x2 = x_values[i + 1] * 15 + self.graph.winfo_width() / 2
+        y2 = -y_values[i + 1] * 15 + self.graph.winfo_height() / 2
+        # Graph out the line between the two points
+        self.graph.create_line(x1, y1, x2, y2, width=2, fill='red')
+
+    # Attach listeners to the graph for user movement
+    self.graph.bind("<ButtonPress-1>", scroll_start)
+    self.graph.bind("<B1-Motion>", scroll_move)
+    self.graph.bind("<MouseWheel>", zoom)
+    self.graph.bind("<Button-4>", zoom)
+    self.graph.bind("<Button-5>", zoom)

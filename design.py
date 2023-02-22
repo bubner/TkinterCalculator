@@ -80,15 +80,12 @@ def append_scientific(self, target):
         'cos': (3, 4),
         'tan': (4, 4),
         'log': (5, 4),
-        'mod': (6, 4),
-        'x\u00B2': (7, 2),
-        'x\u00B3': (7, 3),
-        'e\u02E3': (7, 4),
+        'rand': (6, 4),
+        '\u00B3√': (7, 2),
+        'x\u00B2': (7, 3),
+        'x\u00B3': (7, 4),
         'x!': (7, 0),
         '\u221A': (7, 1),
-        'sin\u207B\u00B9': (2, 5),
-        'cos\u207B\u00B9': (3, 5),
-        'tan\u207B\u00B9': (4, 5),
         'ln': (5, 5),
         '(': (6, 5),
         ')': (7, 5),
@@ -111,27 +108,45 @@ def append_scientific(self, target):
             btn.configure(command=lambda: self.changeop(Operations.TANGENT))
         elif key == 'log':
             btn.configure(command=lambda: self.changeop(Operations.LOGARITHM))
-        elif key == 'mod':
-            btn.configure(command=lambda: self.changeop(Operations.MODULUS))
+        elif key == '\u00B3√':
+            btn.configure(command=lambda: self.changeop(Operations.CUBE_ROOT))
         elif key == 'x\u00B2':
             btn.configure(command=lambda: self.changeop(Operations.SQUARE))
         elif key == 'x\u00B3':
             btn.configure(command=lambda: self.changeop(Operations.CUBE))
-        elif key == 'e\u02E3':
-            btn.configure(command=lambda: self.changeop(Operations.EXPONENT))
         elif key == 'x!':
             btn.configure(command=lambda: self.changeop(Operations.FACTORIAL))
         elif key == '\u221A':
             btn.configure(command=lambda: self.changeop(Operations.SQUARE_ROOT))
-        elif key == 'sin\u207B\u00B9':
-            btn.configure(command=lambda: self.changeop(Operations.ASINE))
-        elif key == 'cos\u207B\u00B9':
-            btn.configure(command=lambda: self.changeop(Operations.ACOSINE))
-        elif key == 'tan\u207B\u00B9':
-            btn.configure(command=lambda: self.changeop(Operations.ATANGENT))
-        elif key == 'ln':
-            btn.configure(command=lambda: self.changeop(Operations.NATURAL_LOG))
         elif key == '(':
             btn.configure(command=lambda: self.brac("("))
         elif key == ')':
             btn.configure(command=lambda: self.brac(")"))
+        elif key == 'ln':
+            btn.configure(command=lambda: self.changeop(Operations.NATURAL_LOG))
+        elif key == 'rand':
+            btn.configure(command=lambda: self.changeop(Operations.RANDOM))
+
+
+def create_graphing(self, target):
+    # Create graph area
+    self.graph = tk.Canvas(target, width=300, height=300)
+    self.graph.grid(row=0, column=0, columnspan=100, pady=5)
+
+    # Create input box label
+    self.graph_input_label = tk.Label(target, text="y = ")
+    self.graph_input_label.grid(row=1, column=0, columnspan=40, pady=5)
+
+    # Create input box
+    self.graph_input = tk.Entry(target, width=25)
+    self.graph_input.grid(row=1, column=1, columnspan=100, pady=5)
+
+    # Create graph button
+    self.graph_button = tk.Button(target, text="Plot", width=5, height=2)
+    self.graph_button.grid(row=2, column=0, columnspan=100, pady=5)
+    self.graph_button.configure(command=self.graphc)
+
+    # Create x and y line placeholders
+    self.graph.create_line(0, 150, 300, 150, width=2, fill='gray')
+    self.graph.create_line(150, 0, 150, 300, width=2, fill='gray')
+    self.graph.create_text(150, 150, text="No plot yet", font=("Arial", 16))

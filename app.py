@@ -3,7 +3,7 @@
 
 import tkinter as tk
 from tkinter import ttk
-from design import create_standard, append_scientific
+from design import create_standard, append_scientific, create_graphing
 import operations as op
 
 
@@ -33,11 +33,18 @@ class Calculator(tk.Tk):
         self.scientific_calculator = ttk.Frame(self.notebook)
         self.notebook.add(self.scientific_calculator, text="Calculator")
 
+        # Create a graphing tab
+        self.graphing_calculator = ttk.Frame(self.notebook)
+        self.notebook.add(self.graphing_calculator, text="Graphing")
+
         # Add standard widgets to the basic calculator tab
         create_standard(self, self.scientific_calculator)
 
         # Append the scientific functions to the calculator interface
         append_scientific(self, self.scientific_calculator)
+
+        # Add the graphing calculator to the graphing tab
+        create_graphing(self, self.graphing_calculator)
 
     # Define class methods from operations.py
     append = op.append
@@ -49,6 +56,7 @@ class Calculator(tk.Tk):
     pic = op.pic
     delc = op.delc
     brac = op.brac
+    graphc = op.graphc
 
 
 if __name__ == "__main__":
