@@ -24,9 +24,8 @@ class Operations:
     CUBE = 11
     FACTORIAL = 12
     SQUARE_ROOT = 13
-    NATURAL_LOG = 14
-    CUBE_ROOT = 15
-    RANDOM = 16
+    CUBE_ROOT = 14
+    RANDOM = 15
 
     operations_dict = {
         # Standard arithmetic operations
@@ -43,7 +42,6 @@ class Operations:
         CUBE: lambda x: x ** 3,
         FACTORIAL: lambda x: math.factorial(int(x)),
         SQUARE_ROOT: lambda x: math.sqrt(x),
-        NATURAL_LOG: lambda x: math.log(x),
         CUBE_ROOT: lambda x: x ** (1 / 3),
         RANDOM: lambda x: randint(0, int(x))
     }
@@ -84,18 +82,16 @@ def get_operands():
         elif operand == 9:
             string += "(mod)"
         elif operand == 10:
-            string += "(x^2)"
+            string += "(squ)"
         elif operand == 11:
-            string += "(x^3)"
+            string += "(cub)"
         elif operand == 12:
             string += "(fact)"
         elif operand == 13:
             string += "(sqrt)"
         elif operand == 14:
-            string += "ln"
+            string += "(cbrt)"
         elif operand == 15:
-            string += "(cubrt)"
-        elif operand == 16:
             string += "(rand)"
         elif operand == str(math.pi):
             string += "\u03C0"
@@ -391,7 +387,7 @@ def graphc(self):
     self.graph.create_line(self.graph.winfo_width() / 2, -self.graph.winfo_height() * 2, self.graph.winfo_width() / 2, self.graph.winfo_height() * 3, width=2)
     self.graph.create_line(-self.graph.winfo_width() * 2, self.graph.winfo_height() / 2, self.graph.winfo_width() * 3, self.graph.winfo_height() / 2, width=2)
 
-    # Graph out the x and y axis labels accordingly
+    # Graph out the x and y-axis labels accordingly
     for x in range(-50, 51):
         # Split the x-coordinate into two parts, the integer and the decimal
         # This is done so that the decimal can be moved to the right of the integer

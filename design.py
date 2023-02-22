@@ -21,9 +21,9 @@ def create_standard(self, target):
         '-': (4, 3),
         '*': (5, 3),
         '/': (6, 3),
-        '=': (6, 2),
-        'C': (2, 0),
-        '.': (6, 0),
+        '=': (7, 4, 2),
+        'C': (2, 4, 2),
+        '.': (2, 0),
         '-/+': (2, 1),
         '\u03C0': (2, 2),
         '\u2190': (2, 3),
@@ -41,10 +41,10 @@ def create_standard(self, target):
     for key, value in buttons.items():
         # Unpack the values from the buttons object by slicing the tuple in the value pair
         row, col = value[:2]
-        colspan = value[2] if len(value) > 2 else 1
+        span = value[2] if len(value) > 2 else 1
         # Construct a button for each pair
         btn = tk.Button(target, text=key, width=5, height=2)
-        btn.grid(row=row, column=col, columnspan=colspan, padx=5, pady=5)
+        btn.grid(row=row, column=col, columnspan=span, padx=5, pady=5)
         # Change colour to grey
         btn.configure(bg="#d3d3d3")
         # Assign operations to each button
@@ -76,29 +76,28 @@ def create_standard(self, target):
 def append_scientific(self, target):
     # Dictionary of all scientific calculation buttons
     buttons = {
-        'sin': (2, 4),
-        'cos': (3, 4),
-        'tan': (4, 4),
-        'log': (5, 4),
-        'rand': (6, 4),
-        '\u00B3√': (7, 2),
-        'x\u00B2': (7, 3),
-        'x\u00B3': (7, 4),
-        'x!': (7, 0),
-        '\u221A': (7, 1),
-        'ln': (5, 5),
-        '(': (6, 5),
-        ')': (7, 5),
+        'sin': (4, 5),
+        'cos': (5, 5),
+        'tan': (6, 5),
+        'log': (4, 4),
+        'rand': (5, 4),
+        '\u00B3√': (7, 1),
+        'x\u00B2': (7, 2),
+        'x\u00B3': (7, 3),
+        'x!': (6, 4),
+        '\u221A': (7, 0),
+        '(': (3, 4),
+        ')': (3, 5),
     }
 
     # Add the scientific buttons by looping over each button and it's coordinates
     for key, value in buttons.items():
         # Unpack the values from the buttons object by slicing the tuple in the value pair
         row, col = value[:2]
-        colspan = value[2] if len(value) > 2 else 1
+        span = value[2] if len(value) > 2 else 5
         # Construct a button for each pair
-        btn = tk.Button(target, text=key, width=5, height=2)
-        btn.grid(row=row, column=col, columnspan=colspan, padx=5, pady=5)
+        btn = tk.Button(target, text=key, width=span, height=2)
+        btn.grid(row=row, column=col, columnspan=1, padx=5, pady=5)
         # Assign operations to each button
         if key == 'sin':
             btn.configure(command=lambda: self.changeop(Operations.SINE))
@@ -122,8 +121,6 @@ def append_scientific(self, target):
             btn.configure(command=lambda: self.brac("("))
         elif key == ')':
             btn.configure(command=lambda: self.brac(")"))
-        elif key == 'ln':
-            btn.configure(command=lambda: self.changeop(Operations.NATURAL_LOG))
         elif key == 'rand':
             btn.configure(command=lambda: self.changeop(Operations.RANDOM))
 
