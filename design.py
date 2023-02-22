@@ -145,7 +145,7 @@ def create_graphing(self, target):
 
     # Create reset graph button that is right to the graph button
     self.reset_button = tk.Button(target, text="Reset", width=5, height=2)
-    self.reset_button.grid(row=2, column=1, columnspan=60, pady=5)
+    self.reset_button.grid(row=2, column=1, columnspan=40, pady=5)
     self.reset_button.configure(command=self.resetc)
 
     # Create x and y line placeholders by calling reset function

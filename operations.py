@@ -149,7 +149,12 @@ def equc(self):
         if isinstance(operands[i], int):
             if 5 <= operands[i] <= 18:
                 # Use the dictionary to get the correct operation function
-                operands[i] = str(Operations.operations_dict[operands[i]](float(operands[i - 1])))
+                try:
+                    operands[i] = str(Operations.operations_dict[operands[i]](float(operands[i - 1])))
+                except ValueError:
+                    # If the user passes an unsolvable function, evacuate function immediately
+                    self.current.configure(text="Illegal equation.")
+                    return
                 # Delete previous operand, as we've used it now
                 del operands[i - 1]
                 # Decrement the index to account for the deleted element
