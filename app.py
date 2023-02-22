@@ -3,8 +3,8 @@
 
 import tkinter as tk
 from tkinter import ttk
-from design import create_standard
-from operations import append, addc, subc, mulc, divc, equc, clrc, dotc, negc, pic, delc
+from design import create_standard, append_scientific
+import operations as op
 
 
 class Calculator(tk.Tk):
@@ -30,28 +30,25 @@ class Calculator(tk.Tk):
         self.notebook.pack(fill=tk.BOTH, expand=True)
 
         # Create the default tab
-        self.basic_calculator = ttk.Frame(self.notebook)
-        self.notebook.add(self.basic_calculator, text="Basic")
-
-        # Create the standard tab
         self.scientific_calculator = ttk.Frame(self.notebook)
-        self.notebook.add(self.scientific_calculator, text="Scientific")
+        self.notebook.add(self.scientific_calculator, text="Calculator")
 
-        # Add standard widgets to the default tab from design.py
-        create_standard(self, self.basic_calculator)
+        # Add standard widgets to the basic calculator tab
+        create_standard(self, self.scientific_calculator)
+
+        # Append the scientific functions to the calculator interface
+        append_scientific(self, self.scientific_calculator)
 
     # Define class methods from operations.py
-    append = append
-    addc = addc
-    subc = subc
-    mulc = mulc
-    divc = divc
-    equc = equc
-    clrc = clrc
-    dotc = dotc
-    negc = negc
-    pic = pic
-    delc = delc
+    append = op.append
+    changeop = op.changeop
+    equc = op.equc
+    clrc = op.clrc
+    dotc = op.dotc
+    negc = op.negc
+    pic = op.pic
+    delc = op.delc
+    brac = op.brac
 
 
 if __name__ == "__main__":
