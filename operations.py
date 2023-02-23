@@ -432,3 +432,85 @@ def resetc(self):
     self.graph.create_line(0, 150, 300, 150, width=2, fill='gray')
     self.graph.create_line(150, 0, 150, 300, width=2, fill='gray')
     self.graph.create_text(150, 150, text="No plot yet", font=("Arial", 16))
+
+
+# Trigonometry calculator triangle implementation
+# Ported from JavaScript to Python
+class Triangle:
+    def __init__(self, params):
+        self.a = params[0]
+        self.b = params[1]
+        self.c = params[2]
+        self.A = params[3]
+        self.B = params[4]
+
+        # Determine properties of inputted triangle
+        self.sides = 0
+        self.angles = 0
+
+        for i in range(3):
+            if params[i] is not None:
+                self.sides += 1
+
+        for i in range(3, 5):
+            if params[i] is not None:
+                self.angles += 1
+
+    def find_all(self):
+        if self.sides == 1 and self.angles == 1:
+            self.find_missing_angle()
+            self.find_side_from_angle()
+        self.find_missing_side()
+        if self.angles == 0:
+            self.find_all_internal_angles()
+        elif not self.angles == 2:
+            self.find_missing_angle()
+
+    def find_missing_side(self):
+        if self.sides != 2:
+            return
+
+        if not self.a:
+            # a = sqrt(c^2 - b^2)
+            self.a = math.sqrt((self.c * self.c) - (self.b * self.b))
+
+        if not self.b:
+            # b = sqrt(c^2 - a^2)
+            self.b = math.sqrt((self.c * self.c) - (self.a * self.a))
+
+        if not self.c:
+            # c = sqrt(a^2 + b^2)
+            self.c = math.sqrt((self.a * self.a) + (self.b * self.b))
+
+    def find_missing_angle(self):
+        if not self.A and not self.B:
+            return
+
+        # Calculate the missing angle
+        if not self.A:
+            self.A = 90 - self.B
+        else:
+            self.B = 90 - self.A
+
+    def find_all_internal_angles(self):
+        # Assumes we have values a and c from find_missing_side, uses inverse sine
+        self.A = math.asin(float(self.a) / float(self.c))
+        self.B = math.asin(float(self.b) / float(self.c))
+        # Converts radians to degrees while outputting
+        self.A = self.A * 180 / math.pi
+        self.B = self.B * 180 / math.pi
+
+    def find_side_from_angle(self):
+        # Assumes we have value A from find_missing_angle
+        if not self.a and self.c:
+            # Find A from C, then find B from missing side
+            self.a = self.c * math.sin(self.A * math.pi / 180)
+            self.sides += 1
+        elif not self.c:
+            # Find the missing value between A and B then find C from missing side
+            if not self.a:
+                self.a = self.b * math.tan(self.A * math.pi / 180)
+                self.sides += 1
+            elif not self.b:
+                self.b = self.a * math.tan(self.A * math.pi / 180)
+                self.sides += 1
