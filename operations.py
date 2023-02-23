@@ -435,19 +435,21 @@ def resetc(self):
 
 
 # Trigonometry calculator triangle implementation
-# Ported from JavaScript to Python
+# Ported from my JavaScript project 'TrigCalc' as it works well
 class Triangle:
     def __init__(self, params):
+        # Unpack values from input parameters array, which might have null values
+        # in some positions indicating we need to solve them
         self.a = params[0]
         self.b = params[1]
         self.c = params[2]
         self.A = params[3]
         self.B = params[4]
 
-        # Determine properties of inputted triangle
+        # Determine properties of inputted triangle by checking what is null
         self.sides = 0
         self.angles = 0
-
+        
         for i in range(3):
             if params[i] is not None:
                 self.sides += 1
@@ -456,17 +458,24 @@ class Triangle:
             if params[i] is not None:
                 self.angles += 1
 
+    # Grand method to performing all operations ensuring everything is solved
     def find_all(self):
         if self.sides == 1 and self.angles == 1:
+            # Find other missing angle
             self.find_missing_angle()
+            # Try to do standard trigonometry if possible
             self.find_side_from_angle()
+        # Do Pythagoras to solve side 3, whether it be by two original inputs
+        # or by the newly generated side from find_side_from_angle
         self.find_missing_side()
+        # Find angles of triangle based on either sides or other angle
         if self.angles == 0:
             self.find_all_internal_angles()
         elif not self.angles == 2:
             self.find_missing_angle()
 
     def find_missing_side(self):
+        # Use Pythagoras to find the last side
         if self.sides != 2:
             return
 
