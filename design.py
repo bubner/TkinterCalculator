@@ -1,6 +1,7 @@
 # Tkinter app design module
 import tkinter as tk
 from operations import Operations
+from PIL import ImageTk, Image
 
 
 # Function to create the standard 0 to 9, clear, equal, and arithmatic operations design
@@ -150,3 +151,52 @@ def create_graphing(self, target):
 
     # Create x and y line placeholders by calling reset function
     self.resetc()
+
+
+def create_trig(self, target):
+    # TODO: Triangle image
+    # img = ImageTk.PhotoImage(Image.open(r"assets/triangle-right.png"))
+    # self.image = tk.Label(target, image=img)
+    # self.image.place(x=100, y=200)
+    
+    # Side a
+    self.a = tk.Entry(target, width=30)
+    self.a.grid(row=0, column=1, columnspan=1, pady=5)
+    self.a_label = tk.Label(target, text="side a: ")
+    self.a_label.grid(row=0, column=0, columnspan=1, pady=5)
+
+    # Side b
+    self.b = tk.Entry(target, width=30)
+    self.b.grid(row=1, column=1, columnspan=10, pady=5)
+    self.b_label = tk.Label(target, text="side b: ")
+    self.b_label.grid(row=1, column=0, columnspan=1, pady=5)
+
+    # Side c
+    self.c = tk.Entry(target, width=30)
+    self.c.grid(row=2, column=1, columnspan=10, pady=5)
+    self.c_label = tk.Label(target, text="side c: ")
+    self.c_label.grid(row=2, column=0, columnspan=1, pady=5)
+
+    # Angle A
+    self.A = tk.Entry(target, width=30)
+    self.A.grid(row=3, column=1, columnspan=10, pady=5)
+    self.A_label = tk.Label(target, text="angle A (deg): ")
+    self.A_label.grid(row=3, column=0, columnspan=1, pady=5)
+    
+    # Angle B
+    self.B = tk.Entry(target, width=30)
+    self.B.grid(row=4, column=1, columnspan=10, pady=5)
+    self.B_label = tk.Label(target, text="angle B (deg): ")
+    self.B_label.grid(row=4, column=0, columnspan=1, pady=5)
+
+    # Solve button
+    self.solve_button = tk.Button(target, text="Solve", width=5, height=2)
+    self.solve_button.grid(row=10, column=0, columnspan=1, pady=5)
+    self.solve_button.configure(command=self.trigc)
+
+    # TODO: Clear button
+
+    # Complaint text
+    self.complaint = tk.Label(target, text="")
+    self.complaint.grid(row=10, column=1, columnspan=1)
+    

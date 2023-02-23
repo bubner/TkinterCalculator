@@ -523,3 +523,59 @@ class Triangle:
             elif not self.b:
                 self.b = self.a * math.tan(self.A * math.pi / 180)
                 self.sides += 1
+
+
+def trigc(self):
+    # Extract parameters from input boxes
+    params = [None for _ in range(6)]
+    params[0] = self.a.get()
+    params[1] = self.b.get()
+    params[2] = self.c.get()
+    params[3] = self.A.get()
+    params[4] = self.B.get()
+
+    # Convert numbers to float if possible
+    for index, entry in enumerate(params):
+        try:
+            params[index] = float(entry)
+        except Exception:
+            params[index] = None
+
+    # Make a new Triangle instance
+    tri = Triangle(params)
+
+    # Validation checksums
+    if tri.sides == 0:
+        self.complaint.configure(text="One side is required.")
+        return
+
+    if tri.c and ((tri.b and tri.c < tri.b) or (tri.a and tri.c < tri.a)):
+        self.complaint.configure(text="Side c must be greater than a and b.")
+        return
+    
+    if (tri.A and tri.A <= 0) or (tri.B and tri.B <= 0):
+        self.complaint.configure(text="Angles cannot be below or equal to zero.")
+        return
+
+    if tri.sides + tri.angles != 2:
+        self.complaint.configure(text="Only two inputs are required.")
+        return
+
+    # Grand calculation operation
+    self.complaint.configure(text="")
+    tri.find_all()
+
+    # Clear out displays
+    self.a.delete(0, tk.END)
+    self.b.delete(0, tk.END)
+    self.c.delete(0, tk.END)
+    self.A.delete(0, tk.END)
+    self.B.delete(0, tk.END)
+
+    # Insert new data
+    self.a.insert(0, tri.a)
+    self.b.insert(0, tri.b)
+    self.c.insert(0, tri.c)
+    self.A.insert(0, tri.A)
+    self.B.insert(0, tri.B)
+    

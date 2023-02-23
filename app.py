@@ -3,7 +3,7 @@
 
 import tkinter as tk
 from tkinter import ttk
-from design import create_standard, append_scientific, create_graphing
+from design import create_standard, append_scientific, create_graphing, create_trig
 import operations as op
 
 
@@ -37,6 +37,10 @@ class Calculator(tk.Tk):
         self.graphing_calculator = ttk.Frame(self.notebook)
         self.notebook.add(self.graphing_calculator, text="Graphing")
 
+        # Create a trig tab
+        self.trig_calculator = ttk.Frame(self.notebook)
+        self.notebook.add(self.trig_calculator, text="Right Angle Trigonometry")
+
         # Add standard widgets to the basic calculator tab
         create_standard(self, self.scientific_calculator)
 
@@ -45,6 +49,9 @@ class Calculator(tk.Tk):
 
         # Add the graphing calculator to the graphing tab
         create_graphing(self, self.graphing_calculator)
+
+        # Add the trigonometry calculator to the trig tab
+        create_trig(self, self.trig_calculator)
 
     # Define class methods from operations.py
     append = op.append
@@ -58,6 +65,7 @@ class Calculator(tk.Tk):
     brac = op.brac
     graphc = op.graphc
     resetc = op.resetc
+    trigc = op.trigc
 
 
 if __name__ == "__main__":
