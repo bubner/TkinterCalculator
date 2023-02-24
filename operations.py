@@ -346,7 +346,7 @@ def clrc(self):
     operation = None
     operands.clear()
     self.display.delete(0, tk.END)
-    self.current.configure(text="Calculator")
+    self.current.configure(text="Ready")
 
 
 # Plot a mathematical expression in the Graphing tab
@@ -546,19 +546,27 @@ def trigc(self):
 
     # Validation checksums
     if tri.sides == 0:
-        self.complaint.configure(text="One side is required.")
+        self.complaint.configure(text="Cannot solve: one side is required.")
         return
 
     if tri.c and ((tri.b and tri.c < tri.b) or (tri.a and tri.c < tri.a)):
-        self.complaint.configure(text="Side c must be greater than a and b.")
+        self.complaint.configure(text="Cannot solve: side c must be greater than a and b.")
         return
     
     if (tri.A and tri.A <= 0) or (tri.B and tri.B <= 0):
-        self.complaint.configure(text="Angles cannot be below or equal to zero.")
+        self.complaint.configure(text="Cannot solve: angles cannot be below or equal to zero.")
         return
 
-    if tri.sides + tri.angles != 2:
-        self.complaint.configure(text="Only two inputs are required.")
+    if (tri.A and tri.A >= 90) or (tri.B and tri.B >= 90):
+        self.complaint.configure(text="Cannot solve: angles cannot be equal to or above 90.")
+        return
+
+    if tri.sides + tri.angles > 2:
+        self.complaint.configure(text="Cannot solve: too many values, must have 2.")
+        return
+
+    if tri.sides + tri.angles < 2:
+        self.complaint.configure(text="Cannot solve: must have two known values.")
         return
 
     # Grand calculation operation
@@ -578,4 +586,12 @@ def trigc(self):
     self.c.insert(0, tri.c)
     self.A.insert(0, tri.A)
     self.B.insert(0, tri.B)
-    
+
+
+def clearc(self):
+    self.a.delete(0, tk.END)
+    self.b.delete(0, tk.END)
+    self.c.delete(0, tk.END)
+    self.A.delete(0, tk.END)
+    self.B.delete(0, tk.END)
+    self.complaint.configure(text="")

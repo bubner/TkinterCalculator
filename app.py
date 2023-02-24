@@ -66,6 +66,7 @@ class Calculator(tk.Tk):
     graphc = op.graphc
     resetc = op.resetc
     trigc = op.trigc
+    clearc = op.clearc
 
 
 if __name__ == "__main__":

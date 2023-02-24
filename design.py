@@ -35,7 +35,7 @@ def create_standard(self, target):
     self.display.grid(row=1, column=0, columnspan=100, pady=5)
 
     # Add a small widget above the entry bar that displays the current calculation
-    self.current = tk.Label(target, text="Calculator")
+    self.current = tk.Label(target, text="Ready")
     self.current.grid(row=0, column=0, columnspan=100, pady=5)
 
     # Add the number buttons by looping over each button and it's coordinates
@@ -154,49 +154,54 @@ def create_graphing(self, target):
 
 
 def create_trig(self, target):
-    # TODO: Triangle image
-    # img = ImageTk.PhotoImage(Image.open(r"assets/triangle-right.png"))
-    # self.image = tk.Label(target, image=img)
-    # self.image.place(x=100, y=200)
+    # Insert an image
+    self.image = Image.open("assets/triangle-right.png")
+    self.image = self.image.resize((300, 166), Image.ANTIALIAS)
+    self.image = ImageTk.PhotoImage(self.image)
+    self.image_label = tk.Label(target, image=self.image)
+    self.image_label.grid(row=0, column=0, columnspan=100, pady=5)
     
     # Side a
-    self.a = tk.Entry(target, width=30)
-    self.a.grid(row=0, column=1, columnspan=1, pady=5)
+    self.a = tk.Entry(target, width=25)
+    self.a.grid(row=1, column=1, columnspan=1, pady=5)
     self.a_label = tk.Label(target, text="side a: ")
-    self.a_label.grid(row=0, column=0, columnspan=1, pady=5)
+    self.a_label.grid(row=1, column=0, columnspan=1, pady=5)
 
     # Side b
-    self.b = tk.Entry(target, width=30)
-    self.b.grid(row=1, column=1, columnspan=10, pady=5)
+    self.b = tk.Entry(target, width=25)
+    self.b.grid(row=2, column=1, columnspan=10, pady=5)
     self.b_label = tk.Label(target, text="side b: ")
-    self.b_label.grid(row=1, column=0, columnspan=1, pady=5)
+    self.b_label.grid(row=2, column=0, columnspan=1, pady=5)
 
     # Side c
-    self.c = tk.Entry(target, width=30)
-    self.c.grid(row=2, column=1, columnspan=10, pady=5)
+    self.c = tk.Entry(target, width=25)
+    self.c.grid(row=3, column=1, columnspan=10, pady=5)
     self.c_label = tk.Label(target, text="side c: ")
-    self.c_label.grid(row=2, column=0, columnspan=1, pady=5)
+    self.c_label.grid(row=3, column=0, columnspan=1, pady=5)
 
     # Angle A
-    self.A = tk.Entry(target, width=30)
-    self.A.grid(row=3, column=1, columnspan=10, pady=5)
+    self.A = tk.Entry(target, width=25)
+    self.A.grid(row=4, column=1, columnspan=10, pady=5)
     self.A_label = tk.Label(target, text="angle A (deg): ")
-    self.A_label.grid(row=3, column=0, columnspan=1, pady=5)
+    self.A_label.grid(row=4, column=0, columnspan=1, pady=5)
     
     # Angle B
-    self.B = tk.Entry(target, width=30)
-    self.B.grid(row=4, column=1, columnspan=10, pady=5)
+    self.B = tk.Entry(target, width=25)
+    self.B.grid(row=5, column=1, columnspan=10, pady=5)
     self.B_label = tk.Label(target, text="angle B (deg): ")
-    self.B_label.grid(row=4, column=0, columnspan=1, pady=5)
+    self.B_label.grid(row=5, column=0, columnspan=1, pady=5)
 
     # Solve button
-    self.solve_button = tk.Button(target, text="Solve", width=5, height=2)
+    self.solve_button = tk.Button(target, text="Solve unknowns", width=20, height=2)
     self.solve_button.grid(row=10, column=0, columnspan=1, pady=5)
     self.solve_button.configure(command=self.trigc)
 
-    # TODO: Clear button
+    # Clear button
+    self.clear_button = tk.Button(target, text="Clear", width=10, height=2)
+    self.clear_button.grid(row=10, column=1, columnspan=1, pady=5)
+    self.clear_button.configure(command=self.clearc)
 
     # Complaint text
     self.complaint = tk.Label(target, text="")
-    self.complaint.grid(row=10, column=1, columnspan=1)
+    self.complaint.grid(row=11, column=0, columnspan=100)
     
